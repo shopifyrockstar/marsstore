@@ -1,0 +1,165 @@
+<div data-section-type="featured-blog">
+  {% assign blog = blogs[section.settings.blog] %}
+  {% unless blog.empty? %}
+
+  <div class="spacey-row">
+    {% if section.settings.title != blank %}
+    <h2 class="h1 align-center">{{ section.settings.title | escape | link_to: blog.url }}</h2>
+    {% endif %}
+  </div>
+  <div class="spacey-row">
+    {% if blog.articles.size == 0 %}
+    <p class="align-center">{{ 'onboarding.blog.empty' | t }}</p>
+
+    {% else %}
+
+    <div class="three-block-layout three-block-layout--uniform">
+      {% for article in blog.articles limit: section.settings.post_limit %}
+      <div class="col-block">
+        <div class="main">
+          {% if article.image %}
+          <div class="article-image-block">
+            <a href="{{ article.url }}">
+              {% render 'responsive-image', image: article.image, aspect_ratio: section.settings.crop_ratio %}
+            </a>
+          </div>
+          {% endif %}
+
+          {% if section.settings.show_author or section.settings.show_date %}
+            <div class="meta">
+              {% if section.settings.show_author %}
+                <span class="meta-item">{{ article.author | escape }}</span>
+              {% endif %}
+              {% if section.settings.show_date %}
+                <span class="meta-item">{{ article.published_at | date: format: 'month_date_year' }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <h2>{{ article.title | link_to: article.url }}</h2>
+
+          <div class="rte article-excerpt">{{ article.excerpt_or_content }}</div>
+
+          <p class="fullarticle"><a class="cta-link" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  {% else %}
+
+  <div class="spacey-row">
+    <h2 class="h1 align-center">{{ section.settings.title | escape }}</h2>
+  </div>
+  <div class="spacey-row">
+    <div class="three-block-layout three-block-layout--uniform">
+      {% for i in (1..section.settings.post_limit) %}
+      <div class="col-block">
+        <div class="main">
+          <p class="article-image placeholder-image landscape">
+            {{ 'image' | placeholder_svg_tag }}
+          </p>
+
+          {% if section.settings.show_author or section.settings.show_date %}
+            <div class="meta">
+              {% if section.settings.show_author %}
+                <span class="meta-item">{{ 'onboarding.article.author' | t }}</span>
+              {% endif %}
+              {% if section.settings.show_date %}
+                <span class="meta-item">{{ 'now' | date: format: 'month_date_year' }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <h2>{{ 'onboarding.article.title' | t }}</h2>
+
+          <div class="rte article-excerpt">{{ 'onboarding.article.excerpt' | t }}</div>
+
+          <p class="fullarticle"><a class="cta-link" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% endunless %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Blog posts",
+    "class": "section-featured-blog",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Blog posts"
+      },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "range",
+        "id": "post_limit",
+        "min": 3,
+        "max": 12,
+        "step": 3,
+        "label": "Posts",
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show author",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "crop_ratio",
+        "label": "Image size",
+        "options": [
+          {
+            "value": "",
+            "label": "Natural (no crop)"
+          },
+          {
+            "value": "0.67",
+            "label": "Portrait (2:3)"
+          },
+          {
+            "value": "1.0",
+            "label": "Square (1:1)"
+          },
+          {
+            "value": "1.33",
+            "label": "Landscape (4:3)"
+          },
+          {
+            "value": "1.78",
+            "label": "Wide (16:9)"
+          }
+        ],
+        "default": "1.78"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog posts",
+        "settings": {
+        }
+      }
+    ]
+  }
+{% endschema %}

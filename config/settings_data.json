@@ -1,0 +1,463 @@
+{
+  "current": {
+    "font_col_base": "#000000",
+    "font_col_heads": "#000000",
+    "font_col_link": "#f478c4",
+    "font_col_div": "#e7e7e7",
+    "font_col_sale_price": "#bb3428",
+    "btn_col": "#000000",
+    "btn_col_txt": "#ffffff",
+    "font_col_shoptitle": "#ffffff",
+    "logo_bg_col": "#f478c4",
+    "header_bg_col": "#2a7de1",
+    "header_text_col": "#000000",
+    "footer_bg_col": "#ffffff",
+    "footer_text_col": "#171717",
+    "panel_bg_col": "#f478c4",
+    "panel_txt_pri_col": "#000000",
+    "bg_col": "#ffffff",
+    "bg_method": "repeatxy",
+    "coll_col_sale": "#f478c4",
+    "coll_col_sold": "#141414",
+    "coll_col_gen": "#f95400",
+    "prod_rating_star": "#808284",
+    "type_base_font": "futura_n4",
+    "type_heading_font": "din_neuzeit_grotesk_n3",
+    "type_nav_font": "din_neuzeit_grotesk_n7",
+    "type_logo_font": "din_neuzeit_grotesk_n7",
+    "font_size_base_int": 14,
+    "prod_block_qv": true,
+    "show_grid_reviews": false,
+    "prod_block_label_loc": "tr",
+    "prod_label_sale_enabled": false,
+    "prod_label_soldout_enabled": true,
+    "prod_stock_warn_show": true,
+    "prod_stock_warn_limit_int": 10,
+    "block_width_int": 250,
+    "block_gut_int": 10,
+    "adv_ratio": true,
+    "prod_thumb_img_ratio": "100",
+    "search_type": "product",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "1539859666961": {
+            "type": "link",
+            "settings": {
+              "background_color": "#de9d9a",
+              "text_color": "#ffffff"
+            }
+          }
+        },
+        "block_order": [
+          "1539859666961"
+        ],
+        "settings": {
+          "use_logo_margin": false,
+          "sidebar_submenu_style": "out",
+          "show_nav_shadow": false,
+          "show_nav_dividers": true,
+          "nav_featured_link": "Sale",
+          "nav_featured_col": "#dd6666",
+          "header_full_width": false,
+          "show_country_selector": true,
+          "show_store_message": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "show_payment_icons": true,
+          "show_country_selector": true,
+          "show_signup": true,
+          "hide_signup_home": false,
+          "show_signup_background_tint": true
+        }
+      },
+      "product-recommendations": {
+        "type": "product-recommendations",
+        "settings": {
+          "show_product_recommendations": true,
+          "show_vendor": false
+        }
+      }
+    },
+    "bg_image": "",
+    "bg_image_mobile": "",
+    "slideshow_button_icon": "#171717",
+    "image_overlay_opacity": 10,
+    "enable_live_search": true,
+    "live_search_show_vendor": false,
+    "live_search_show_price": false
+  },
+  "presets": {
+    "Flamingo": {
+      "font_col_base": "#787a7c",
+      "font_col_heads": "#171717",
+      "font_col_link": "#c16452",
+      "font_col_div": "#e7e7e7",
+      "font_col_sale_price": "#bb3428",
+      "btn_col": "#171717",
+      "btn_col_txt": "#ffffff",
+      "font_col_shoptitle": "#de9d9a",
+      "logo_bg_col": "#f7f1f0",
+      "header_bg_col": "#de9d9a",
+      "header_text_col": "#ffffff",
+      "footer_bg_col": "#ffffff",
+      "footer_text_col": "#171717",
+      "panel_bg_col": "#f7f1f0",
+      "panel_txt_pri_col": "#4e4e4e",
+      "bg_col": "#ffffff",
+      "bg_image": "",
+      "bg_method": "repeatxy",
+      "bg_image_mobile": "",
+      "slideshow_button_icon": "#171717",
+      "image_overlay_opacity": 10,
+      "coll_col_sale": "#c20000",
+      "coll_col_sold": "#171717",
+      "coll_col_gen": "#de9d9a",
+      "prod_rating_star": "#808284",
+      "type_base_font": "futura_n4",
+      "type_heading_font": "din_neuzeit_grotesk_n3",
+      "type_nav_font": "din_neuzeit_grotesk_n7",
+      "type_logo_font": "din_neuzeit_grotesk_n7",
+      "font_size_base_int": 14,
+      "prod_block_qv": true,
+      "show_grid_reviews": false,
+      "prod_block_label_loc": "c",
+      "prod_label_sale_enabled": true,
+      "prod_label_soldout_enabled": true,
+      "prod_stock_warn_show": true,
+      "prod_stock_warn_limit_int": 5,
+      "block_width_int": 250,
+      "block_gut_int": 15,
+      "adv_ratio": false,
+      "prod_thumb_img_ratio": "100",
+      "search_type": "product",
+      "enable_live_search": true,
+      "live_search_show_vendor": false,
+      "live_search_show_price": false,
+      "sections": {
+        "header": {
+          "type": "header",
+          "blocks": {
+            "1539859666961": {
+              "type": "link",
+              "settings": {
+                "background_color": "#de9d9a",
+                "text_color": "#ffffff"
+              }
+            }
+          },
+          "block_order": [
+            "1539859666961"
+          ],
+          "settings": {
+            "use_logo_margin": false,
+            "sidebar_submenu_style": "out",
+            "show_nav_shadow": false,
+            "show_nav_dividers": true,
+            "nav_featured_link": "Sale",
+            "nav_featured_col": "#dd6666",
+            "header_full_width": false,
+            "show_country_selector": true,
+            "show_store_message": true
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "show_payment_icons": true,
+            "show_country_selector": true,
+            "show_signup": true,
+            "hide_signup_home": false,
+            "show_signup_background_tint": true
+          }
+        },
+        "product-recommendations": {
+          "type": "product-recommendations",
+          "settings": {
+            "show_product_recommendations": true,
+            "show_vendor": false
+          }
+        }
+      }
+    },
+    "Dragonfly": {
+      "font_col_base": "#5d5d60",
+      "font_col_heads": "#212b36",
+      "font_col_link": "#b3793b",
+      "font_col_div": "#dbdad7",
+      "font_col_sale_price": "#bb3428",
+      "btn_col": "#212121",
+      "btn_col_txt": "#fdfdf9",
+      "font_col_shoptitle": "#212b36",
+      "logo_bg_col": "#faf9f5",
+      "header_bg_col": "#212b36",
+      "header_text_col": "#faf9f5",
+      "footer_bg_col": "#faf9f5",
+      "footer_text_col": "#212b36",
+      "panel_bg_col": "#faf9f5",
+      "panel_txt_pri_col": "#212b36",
+      "bg_col": "#faf9f5",
+      "bg_image": "",
+      "bg_method": "repeatxy",
+      "bg_image_mobile": "",
+      "image_overlay_text": "#212121",
+      "image_overlay_bg": "#faf9f5",
+      "image_overlay_opacity": 13,
+      "coll_col_sale": "#dda63d",
+      "coll_col_sold": "#212b36",
+      "coll_col_gen": "#a9d1d6",
+      "prod_rating_star": "#808284",
+      "type_base_font": "itc_franklin_gothic_n4",
+      "type_heading_font": "crimson_text_n6",
+      "type_nav_font": "karla_n7",
+      "type_logo_font": "karla_n7",
+      "font_size_base_int": 14,
+      "prod_block_qv": true,
+      "show_grid_reviews": false,
+      "prod_block_label_loc": "c",
+      "prod_label_sale_enabled": true,
+      "prod_label_soldout_enabled": true,
+      "prod_stock_warn_show": true,
+      "prod_stock_warn_limit_int": 5,
+      "block_width_int": 250,
+      "block_gut_int": 15,
+      "adv_ratio": false,
+      "prod_thumb_img_ratio": "150",
+      "search_type": "product",
+      "enable_live_search": true,
+      "live_search_show_vendor": false,
+      "live_search_show_price": false,
+      "sections": {
+        "header": {
+          "type": "header",
+          "blocks": {
+            "1553509637549": {
+              "type": "link",
+              "settings": {
+                "background_color": "#212b36",
+                "text_color": "#ffffff"
+              }
+            },
+            "1553509889982": {
+              "type": "link",
+              "settings": {
+                "background_color": "#dda63d",
+                "text_color": "#ffffff"
+              }
+            }
+          },
+          "block_order": [
+            "1553509637549",
+            "1553509889982"
+          ],
+          "settings": {
+            "use_logo_margin": false,
+            "sidebar_submenu_style": "out",
+            "show_nav_shadow": false,
+            "show_nav_dividers": false,
+            "nav_featured_link": "Sale",
+            "nav_featured_col": "#dd6666",
+            "header_full_width": true,
+            "show_country_selector": true,
+            "show_store_message": true
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "show_payment_icons": true,
+            "show_country_selector": true,
+            "show_signup": true,
+            "hide_signup_home": false,
+            "show_signup_background_tint": false
+          }
+        },
+        "product-recommendations": {
+          "type": "product-recommendations",
+          "settings": {
+            "show_vendor": false
+          }
+        }
+      }
+    },
+    "Chameleon": {
+      "font_col_base": "#6f6f6f",
+      "font_col_heads": "#00050a",
+      "font_col_link": "#55b6c3",
+      "font_col_div": "#f7f7f7",
+      "font_col_sale_price": "#6f4c95",
+      "btn_col": "#00050a",
+      "btn_col_txt": "#ffffff",
+      "font_col_shoptitle": "#00050a",
+      "logo_bg_col": "#ffffff",
+      "header_bg_col": "#00050a",
+      "header_text_col": "#ffffff",
+      "footer_bg_col": "#ffffff",
+      "footer_text_col": "#00050a",
+      "panel_bg_col": "#ffffff",
+      "panel_txt_pri_col": "#212121",
+      "bg_col": "#ffffff",
+      "image_overlay_opacity": 24,
+      "coll_col_sale": "#6f4c95",
+      "coll_col_sold": "#6f6f6f",
+      "coll_col_gen": "#55b6c3",
+      "prod_rating_star": "#808284",
+      "type_base_font": "roboto_i4",
+      "type_heading_font": "roboto_i7",
+      "type_nav_font": "roboto_i7",
+      "type_logo_font": "roboto_i9",
+      "font_size_base_int": 16,
+      "prod_block_qv": true,
+      "show_grid_reviews": true,
+      "prod_block_label_loc": "tr",
+      "prod_label_sale_enabled": true,
+      "prod_label_soldout_enabled": true,
+      "prod_stock_warn_show": true,
+      "prod_stock_warn_limit_int": 3,
+      "block_width_int": 350,
+      "block_gut_int": 20,
+      "adv_ratio": true,
+      "prod_thumb_img_ratio": "100",
+      "search_type": "product,article,page",
+      "enable_live_search": true,
+      "live_search_show_vendor": false,
+      "live_search_show_price": true,
+      "sections": {
+        "header": {
+          "type": "header",
+          "blocks": {
+            "1539176924797": {
+              "type": "link",
+              "settings": {
+                "background_color": "#6f4c95",
+                "text_color": "#ffffff"
+              }
+            },
+            "1539176941673": {
+              "type": "link",
+              "settings": {
+                "background_color": "#55b6c3",
+                "text_color": "#ffffff"
+              }
+            }
+          },
+          "block_order": [
+            "1539176924797",
+            "1539176941673"
+          ],
+          "settings": {
+            "use_logo_margin": false,
+            "sidebar_submenu_style": "in",
+            "show_nav_shadow": false,
+            "show_nav_dividers": false,
+            "nav_featured_link": "Sale",
+            "nav_featured_col": "#dd6666",
+            "header_full_width": true,
+            "show_country_selector": true,
+            "show_store_message": true
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "show_payment_icons": true,
+            "show_country_selector": true,
+            "show_signup": true,
+            "hide_signup_home": true,
+            "show_signup_background_tint": true
+          }
+        },
+        "product-recommendations": {
+          "type": "product-recommendations",
+          "settings": {
+            "show_product_recommendations": true,
+            "show_vendor": false
+          }
+        }
+      }
+    },
+    "Coyote": {
+      "font_col_base": "#343434",
+      "font_col_heads": "#000000",
+      "font_col_link": "#f45902",
+      "font_col_div": "#e7e7e7",
+      "font_col_sale_price": "#bb3428",
+      "btn_col": "#f45902",
+      "btn_col_txt": "#ffffff",
+      "font_col_shoptitle": "#ffffff",
+      "logo_bg_col": "#141414",
+      "header_bg_col": "#f45902",
+      "header_text_col": "#ffffff",
+      "footer_bg_col": "#f5f5f5",
+      "footer_text_col": "#333333",
+      "panel_bg_col": "#141414",
+      "panel_txt_pri_col": "#ffffff",
+      "bg_col": "#ffffff",
+      "bg_image": "",
+      "bg_method": "repeatxy",
+      "bg_image_mobile": "",
+      "image_overlay_opacity": 12,
+      "coll_col_sale": "#ff5555",
+      "coll_col_sold": "#141414",
+      "coll_col_gen": "#f45902",
+      "prod_rating_star": "#808284",
+      "type_base_font": "gill_sans_nova_n4",
+      "type_heading_font": "cooper_bt_n5",
+      "type_nav_font": "gill_sans_nova_n5",
+      "type_logo_font": "gill_sans_nova_n5",
+      "font_size_base_int": 14,
+      "prod_block_qv": true,
+      "show_grid_reviews": false,
+      "prod_block_label_loc": "c",
+      "prod_label_sale_enabled": true,
+      "prod_label_soldout_enabled": true,
+      "prod_stock_warn_show": true,
+      "prod_stock_warn_limit_int": 5,
+      "block_width_int": 250,
+      "block_gut_int": 15,
+      "adv_ratio": true,
+      "prod_thumb_img_ratio": "100",
+      "search_type": "product",
+      "enable_live_search": true,
+      "live_search_show_vendor": false,
+      "live_search_show_price": false,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "use_logo_margin": false,
+            "sidebar_submenu_style": "in",
+            "show_nav_shadow": false,
+            "show_nav_dividers": true,
+            "nav_featured_link": "Sale",
+            "nav_featured_col": "#dd6666",
+            "header_full_width": false,
+            "show_country_selector": true,
+            "show_store_message": true
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "show_payment_icons": true,
+            "show_country_selector": true,
+            "show_signup": true,
+            "hide_signup_home": false,
+            "show_signup_background_tint": true
+          }
+        },
+        "product-recommendations": {
+          "type": "product-recommendations",
+          "settings": {
+            "show_product_recommendations": true,
+            "show_vendor": false
+          }
+        }
+      }
+    }
+  }
+}

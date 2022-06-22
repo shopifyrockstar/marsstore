@@ -1,0 +1,236 @@
+{% paginate collection.products by section.settings.coll_num_per_page_int %}
+<div id="section-id-{{ section.id }}" data-section-type="collection-template" data-components="facet-filters,price-range">
+  {% if section.settings.show_image %}
+    {% style %}
+      {%- if section.settings.image_height == 'fixed' -%}
+        #section-id-{{ section.id }} .collection-image .fixed-height-item {
+          height: {{ section.settings.image_height_mobile }}px;
+        }
+      {%- endif -%}
+      @media (min-width: 768px) {
+        {%- if section.settings.image_height == 'fixed' -%}
+        #section-id-{{ section.id }} .collection-image .fixed-height-item {
+          height: {{ section.settings.image_height_desktop }}px;
+        }
+        {%- endif -%}
+    {% endstyle %}
+    <div class="collection-image height--{{ section.settings.image_height }}">
+      <div class="rimage-outer-wrapper lazyload fade-in{% if section.settings.image_height == 'fixed' %} fixed-height-item{% endif %}"
+          data-bgset="{% render 'bgset', image: collection.featured_image %}"
+          data-sizes="auto"
+          data-parent-fit="cover"
+          style="background-position: {{ section.settings.image_position }}">
+          {%- if section.settings.image_height == 'adapt' -%}
+            {%- assign aspect_ratio = collection.featured_image.aspect_ratio | default: 2.0 -%}
+            <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: aspect_ratio | times: 100 }}%"></div>
+          {%- endif -%}
+          <noscript>
+            <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: collection.featured_image.aspect_ratio | times: 100 }}%">
+              <img src="{{ collection.featured_image | img_url: '1024x1024' }}" alt="{{ collection.featured_image.alt | escape }}" class="rimage__image">
+            </div>
+          </noscript>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="content-header align-centre">
+    <h1 class="page-title">{{ collection.title | escape }}</h1>
+  </div>
+
+  {% if collection.description != blank %}
+  <div class="reading-container rte align-centre cf">{{ collection.description }}</div>
+  {% endif %}
+
+  {%- if section.settings.show_filters or section.settings.show_sort_by -%}
+    <div class="row">
+      {%- capture close_icon -%}{% render 'svg-x' %}{%- endcapture -%}
+      {%- capture back_icon -%}{% render 'svg-chevron-left' %}{%- endcapture -%}
+      {% render 'facet-filters',
+        results: collection,
+        paginate: paginate,
+        close_icon: close_icon,
+        back_icon: back_icon
+      %}
+    </div>
+  {%- endif -%}
+
+  <div class="cc-filters-results">
+    <div class="{% if settings.adv_ratio %}fixedlayout{% else %}blocklayout{% endif %} {% if section.settings.coll_infscr %}do-infinite{% endif %}">
+      {%- if collection.products != blank and settings.adv_ratio -%}
+        {%- capture calculated_aspect_ratio -%}{% render 'minmax-image-ratio', products: collection.products, type: settings.prod_thumb_img_ratio %}{%- endcapture -%}
+      {%- endif -%}
+
+      {% for product in collection.products %}
+        {% render 'product-block', product: product, product_collection: collection, calculated_aspect_ratio: calculated_aspect_ratio %}
+      {% else %}
+        <div class="block text no-inf size-large"><div class="main">{{ 'collections.general.no_matches' | t }}</div></div>
+      {% endfor %}
+
+      {% for i in (1..10) %}
+      <div class="block no-inf product block--flex-placeholder"></div>
+      {% endfor %}
+    </div>
+
+    {% if paginate.items > 0 %}
+      <div class="row pagination-row">
+        {% render 'pagination-control', paginate: paginate %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endpaginate %}
+
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendors",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "coll_num_per_page_int",
+        "min": 24,
+        "max": 48,
+        "step": 8,
+        "label": "Products per page",
+        "default": 24
+      },
+      {
+        "type": "checkbox",
+        "id": "coll_infscr",
+        "label": "Enable infinite-scroll"
+      },
+      {
+        "type": "header",
+        "content": "Featured image"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_image",
+        "label": "Show featured image",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "image_position",
+        "label": "Image alignment",
+        "info": "Used to keep the subject of your image in view",
+        "default": "center center",
+        "options": [
+          {
+            "value": "top left",
+            "label": "Top left"
+          },
+          {
+            "value": "top center",
+            "label": "Top center"
+          },
+          {
+            "value": "top right",
+            "label": "Top right"
+          },
+          {
+            "value": "center left",
+            "label": "Middle left"
+          },
+          {
+            "value": "center center",
+            "label": "Middle center"
+          },
+          {
+            "value": "center right",
+            "label": "Middle right"
+          },
+          {
+            "value": "bottom left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "bottom center",
+            "label": "Bottom center"
+          },
+          {
+            "value": "bottom right",
+            "label": "Bottom right"
+          }
+        ]
+      },
+      {
+        "type": "radio",
+        "id": "image_height",
+        "label": "Image height",
+        "options": [
+          {
+            "value": "adapt",
+            "label": "Natural"
+          },
+          {
+            "value": "fixed",
+            "label": "Fixed height"
+          }
+        ],
+        "default": "fixed"
+      },
+      {
+        "type": "range",
+        "id": "image_height_desktop",
+        "min": 200,
+        "max": 1000,
+        "step": 20,
+        "unit": "px",
+        "label": "Desktop fixed height",
+        "default": 400
+      },
+      {
+        "type": "range",
+        "id": "image_height_mobile",
+        "min": 100,
+        "max": 1000,
+        "step": 20,
+        "unit": "px",
+        "label": "Mobile fixed height",
+        "default": 300
+      },
+      {
+        "type": "header",
+        "content": "Filtering"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filters",
+        "label": "Enable filtering",
+        "info": "[Customize filters](\/admin\/menus)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filter_prod_counts",
+        "label": "Show product counts",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Sorting"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_by",
+        "label": "Show 'sort by' option",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_featured",
+        "label": "Show 'Featured' sort option",
+        "default": false,
+        "info": "Add your manually sorted order to the sort options"
+      }
+    ]
+  }
+{% endschema %}
+

@@ -1,0 +1,106 @@
+<div data-section-id="{{ section.id }}" data-section-type="text-section">
+  <div class="super-spacey-row align-center">
+    <div class="{% unless section.settings.full_width %}reading-container{% endunless %} align-{{ section.settings.text_alignment }}">
+      {% if section.settings.title != blank %}
+      <h1>{{ section.settings.title | escape }}</h1>
+      {% endif %}
+
+      <div class="rte {% if section.settings.enlarge_text %}enlarged-text{% endif %}">
+        {{ section.settings.text }}
+      </div>
+      {% if section.settings.button_label != blank %}
+        <div class="button-row">
+          <a class="{% if section.settings.button_style != 'link' %}button button--{{ section.settings.button_style }}{% endif %} auto-width" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Rich text",
+    "class": "section-rich-text",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Rich text"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "default": "primary",
+        "options": [
+          {
+            "label": "Button - primary",
+            "value": "primary"
+          },
+          {
+            "label": "Button - secondary",
+            "value": "secondary"
+          },
+          {
+            "label": "Link",
+            "value": "link"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment",
+        "default": "center",
+        "options": [
+          {
+            "label": "Left",
+            "value": "left"
+          },
+          {
+            "label": "Center",
+            "value": "center"
+          },
+          {
+            "label": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "enlarge_text",
+        "label": "Enlarge text",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Wide display",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Rich text"
+      }
+    ]
+  }
+{% endschema %}

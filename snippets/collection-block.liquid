@@ -1,0 +1,23 @@
+<div class="block collection product size-medium" {{ custom_attrs }}>
+  <div class="main">
+    <a class="img-link" href="{{ collection.url }}" title="{{ collection.title }}">
+      {% if settings.collection_image_shape == 'natural' %}
+        {% render 'responsive-image', image: collection.featured_image %}
+      {% else %}
+        <div class="rimage-outer-wrapper lazyload fade-in"
+            data-bgset="{% render 'bgset', image: collection.featured_image %}"
+            data-sizes="auto"
+            data-parent-fit="{% if settings.collection_image_crop %}cover{% else %}contain{% endif %}">
+          <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: collection.featured_image.aspect_ratio | times: 100 }}%">
+            <noscript>
+              <img src="{{ collection.featured_image | img_url: '1024x1024' }}" alt="{{ collection.featured_image.alt | escape }}" class="rimage__image">
+            </noscript>
+          </div>
+        </div>
+      {% endif %}
+    </a>
+  </div>
+  <div class="sub">
+    <p><a class="product-block-title" href="{{ collection.url }}">{{ collection.title }}</a></p>
+  </div>
+</div>

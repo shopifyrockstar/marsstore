@@ -1,0 +1,120 @@
+{%- assign block_size = 'medium' -%}
+{%- if product.tags contains 'meta-image-large' -%}
+  {%- unless product_image_size_norm -%}
+    {%- assign block_size = 'large' -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if settings.prod_thumb_hover_image and product.media.size > 1 -%}
+  {%- assign show_hover_image = true -%}
+{%- else -%}
+  {%- assign show_hover_image = false -%}
+{%- endif -%}
+
+{%- unless no_quick_buy -%}{% assign no_quick_buy = false %}{%- endunless -%}
+
+{%- assign collection_colour_class = '' -%}
+
+{%- if product_collection -%}
+    {%- capture product_url -%}{{ product.url | within: product_collection }}{%- endcapture -%}
+{%- else -%}
+    {%- capture product_url -%}{{ product.url }}{%- endcapture -%}
+{%- endif -%}
+
+<div class="block product size-{{ block_size }} {% if settings.adv_ratio %}fixed-ratio{% endif %}">
+  <div class="main">
+    <a class="img-link" href="{{ product_url }}" title="{{ product.title | escape }}">
+      {%- render 'product-label', product: product -%}
+
+      {% if settings.adv_ratio %}
+        <div class="product-image {% if show_hover_image %} product-image--has-secondary{% endif %}">
+
+          <div class="product-image__primary rimage-outer-wrapper lazyload fade-in" data-bgset="{% render 'bgset', image: product.featured_media.preview_image %}" data-sizes="auto" data-parent-fit="contain">
+            {% capture aspect_ratio_primary %}{% if settings.prod_thumb_img_ratio == 'tallest' or settings.prod_thumb_img_ratio == 'shortest' %}{{ calculated_aspect_ratio | default: product.featured_media.preview_image.aspect_ratio }}{% else %}{{ product.featured_media.preview_image.aspect_ratio }}{% endif %}{% endcapture %}
+
+            <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: aspect_ratio_primary | times: 100 }}%">
+              <noscript>
+                <img src="{{ product.featured_media.preview_image | img_url: '1024x1024' }}" alt="{{ product.featured_media.preview_image.alt | escape }}" class="rimage__image">
+              </noscript>
+            </div>
+          </div>
+
+          {% if show_hover_image %}
+            <div class="product-image__secondary rimage-outer-wrapper lazyload" data-bgset="{% render 'bgset', image: product.media[1].preview_image %}" data-sizes="auto" data-parent-fit="contain">
+              {% capture aspect_ratio_secondary %}{% if settings.prod_thumb_img_ratio == 'tallest' or settings.prod_thumb_img_ratio == 'shortest' %}{{ calculated_aspect_ratio | default: product.media[1].preview_image.aspect_ratio }}{% else %}{{ product.media[1].preview_image.aspect_ratio }}{% endif %}{% endcapture %}
+              <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: aspect_ratio_secondary | times: 100 }}%">
+                <noscript>
+                  <img src="{{ product.media[1].preview_image | img_url: '1024x1024' }}" alt="{{ product.media[1].preview_image.alt | escape }}" class="rimage__image">
+                </noscript>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+      {% else %}
+        <div class="product-image {% if show_hover_image %} product-image--has-secondary{% endif %}">
+          <div class="product-image__primary">
+            {% render 'responsive-image', image: product.featured_media.preview_image %}
+          </div>
+          {% if show_hover_image %}
+            <div class="product-image__secondary lazyload"
+              data-bgset="{% render 'bgset', image: product.media[1].preview_image %}"
+              data-sizes="auto"
+              data-parent-fit="cover">
+              <noscript>
+                <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: product.media[1].preview_image.aspect_ratio | times: 100 }}%">
+                  <img src="{{ product.media[1] | img_url: '1024x1024' }}" alt="{{ product.media[1].preview_image.alt | escape }}" class="rimage__image">
+                </div>
+              </noscript>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </a>
+
+    {% if settings.prod_block_qv and no_quick_buy == false %}
+    <div class="quick-buy-row">
+      <a href="{{ product_url }}" class="quick-buy button button--slim">{{ 'products.listing.quick_view' | t }}</a>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="sub">
+    {% if section.settings.show_vendor %}
+    <div class="product-vendor">{{ product.vendor }}</div>
+    {% endif %}
+
+    <a class="product-block-title" href="{{ product_url }}">{{ product.title }}</a>
+
+    <div class="pricearea">
+      {%- assign cheapest_variant = product.variants | sort: 'price' | first -%}
+
+      {% if product.price_varies %}<span class="from">{{ 'products.listing.from' | t }}</span>{% endif %}
+      <span class="price {% if cheapest_variant.compare_at_price > cheapest_variant.price %}price--reduced{% endif %} theme-money">
+        {%- if settings.product_currency_code_enabled -%}
+          {{- cheapest_variant.price | money_with_currency -}}
+        {%- else -%}
+          {{- cheapest_variant.price | money -}}
+        {%- endif -%}
+      </span>
+      {% if cheapest_variant.compare_at_price > cheapest_variant.price %}
+        <span class="was-price theme-money">{{ cheapest_variant.compare_at_price | money }}</span>
+      {% endif %}
+
+      {% render 'unit-price', variant: cheapest_variant %}
+    </div>
+
+  </div>
+
+  {% if settings.show_grid_reviews and product.metafields.reviews.rating_count != blank %}
+    {%- assign rating_count = product.metafields.reviews.rating_count | plus: 0 -%}
+    {%- if rating_count > 0 -%}
+      <div class="themed-product-reviews">
+        {% render 'rating', rating_value: product.metafields.reviews.rating.value %}
+        <span class="cc-rating-custom-caption">
+          {{ product.metafields.reviews.rating_count }} {{ 'products.product.reviews_link' | t: count: product.metafields.reviews.rating_count | downcase }}
+        </span>
+      </div>
+    {%- endif -%}
+  {% endif %}
+</div>

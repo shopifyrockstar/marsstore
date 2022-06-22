@@ -1,0 +1,21 @@
+<div class="spacey-row section-id-{{ section.id }}" data-section-type="custom-liquid">
+  {{ section.settings.liquid }}
+</div>
+
+{% schema %}
+  {
+    "name": "Custom Liquid",
+    "settings": [
+      {
+        "type": "liquid",
+        "id": "liquid",
+        "label": "Custom Liquid"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Liquid"
+      }
+    ]
+  }
+{% endschema %}

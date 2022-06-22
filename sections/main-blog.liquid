@@ -1,0 +1,199 @@
+<div data-section-type="blog-template">
+  {% paginate blog.articles by 24 %}
+
+  <div class="content-header align-centre {% if section.settings.show_rss %}has-rss{% endif %}">
+    <h1 class="page-title">{{ blog.title }}</h1>
+    {% if section.settings.show_rss %}
+      <span class="sharing">
+        <a class="rss" href="{{ blog.url }}.atom" title="{{ blog.title | escape }} RSS">{% render 'svg-rss' %}</a>
+      </span>
+    {% endif %}
+  </div>
+
+  {% if section.settings.show_sharing_icons or blog.tags.size > 0 %}
+    <div class="filter-row">
+      {% if blog.tags.size > 0 %}
+        <div class="filter-dropdown">
+          {% if current_tags %}
+            {% for tag in current_tags %}
+              <span class="filter__active-tag">{{ tag }}</span>
+            {% endfor %}
+          {% else %}
+            <span class="filter__label-text">{{- 'blogs.filtering.filter' | t -}}</span>
+          {% endif %}
+
+          {% render 'svg-chevron-down' %}
+          <select class="navdrop" aria-label="{{ 'blogs.filtering.filter' | t | escape }}">
+            <option value="{{ blog.url }}">{{ 'blogs.filtering.all' | t }}</option>
+            {%- for tag in blog.all_tags -%}
+              <option value="{{ blog.url }}/tagged/{{ tag | handle }}" {% if current_tags contains tag %}selected="selected"{% endif %}>{{ tag }}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {% endif %}
+
+      {% if section.settings.show_sharing_icons %}
+        <div class="not-filter desktop-only">
+          {% render 'social-sharing', share_title: blog.title, share_permalink: blog.url, share_image: false %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if blog.articles.size > 0 %}
+
+  {% if section.settings.display_mode_list %}
+  <div class="reading-container">
+  {% else %}
+  <div class="blocklayout double-sized" data-block-width="{{ section.settings.block_width_int }}">
+  {% endif %}
+
+    {% for article in blog.articles %}
+    <div class="{% if section.settings.display_mode_list %}row{% else %}block{% endif %} text">
+      <div class="main">
+        {% if article.image %}
+        <div class="{% if section.settings.display_mode_list %}article-image{% else %}article-image-block{% endif %}">
+          <a href="{{ article.url }}">
+            {% render 'responsive-image', image: article.image, aspect_ratio: section.settings.crop_ratio %}
+          </a>
+        </div>
+        {% endif %}
+
+        {% if section.settings.show_author or section.settings.show_date %}
+          <div class="meta">
+            {% if section.settings.show_author %}
+              <span class="meta-item">{{ article.author | escape }}</span>
+            {% endif %}
+            {% if section.settings.show_date %}
+              <span class="meta-item">{{ article.published_at | date: format: 'month_date_year' }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <h2>{{ article.title | link_to: article.url }}</h2>
+
+        <div class="rte article-excerpt">{{ article.excerpt_or_content }}</div>
+
+        <p class="fullarticle"><a class="cta-link" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a></p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <div class="row">
+    {% render 'pagination-control', paginate: paginate %}
+  </div>
+
+  {% else %}
+
+  <div class="reading-container rte align-centre">{{ 'blogs.general.no_matches' | t }}</div>
+
+  {% endif %}
+
+  {% endpaginate %}
+</div>
+
+<style type="text/css">
+  .blocklayout.double-sized .block {
+    margin: {{ section.settings.block_gut_int }}px;
+    width: {{ section.settings.block_width_int | plus: section.settings.block_width_int | plus: section.settings.block_gut_int | plus: section.settings.block_gut_int }}px;
+  }
+
+  .filter-row {
+    padding: 0 {{ section.settings.block_gut_int }}px;
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Blog pages",
+    "class": "section-blog-template",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "display_mode_list",
+        "label": "Enable list layout",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "crop_ratio",
+        "label": "Image size",
+        "options": [
+          {
+            "value": "",
+            "label": "Natural (no crop)"
+          },
+          {
+            "value": "0.67",
+            "label": "Portrait (2:3)"
+          },
+          {
+            "value": "1.0",
+            "label": "Square (1:1)"
+          },
+          {
+            "value": "1.33",
+            "label": "Landscape (4:3)"
+          },
+          {
+            "value": "1.78",
+            "label": "Wide (16:9)"
+          }
+        ],
+        "default": "1.78"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show author",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_rss",
+        "label": "Show RSS",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sharing_icons",
+        "label": "Show social sharing icons",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "block_width_int",
+        "min": 150,
+        "max": 350,
+        "step": 50,
+        "unit": "px",
+        "label": "Tile size",
+        "default": 250,
+        "info": "Tile size may increase to fill the page"
+      },
+      {
+        "type": "range",
+        "id": "block_gut_int",
+        "min": 10,
+        "max": 20,
+        "step": 5,
+        "unit": "px",
+        "label": "Margin between tiles",
+        "default": 15
+      }
+    ]
+  }
+{% endschema %}

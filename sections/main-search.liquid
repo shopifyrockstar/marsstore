@@ -1,0 +1,140 @@
+{%- paginate search.results by section.settings.coll_num_per_page_int -%}
+  <div data-section-type="search-template" data-components="facet-filters,price-range">
+    <div class="content-header">
+      <h1 class="page-title align-center">{{ 'general.search.title' | t }}</h1>
+
+      <form class="row" id="search-form" name="search" action="{{ routes.search_url }}">
+        <div class="inline-input-button-row">
+          <div class="inline-input-button-row__input">
+            <input type="text" id="q" name="q" placeholder="{{ 'general.search.page_placeholder' | t }}" value="" aria-label="{{ 'general.search.input_label' | t | escape }}" />
+          </div>
+          <div class="inline-input-button-row__button">
+            <input type="submit" id="search-submit" value="{{ 'general.search.submit' | t }}" />
+          </div>
+        </div>
+        <input type="hidden" name="type" value="{{ settings.search_type }}" />
+        <input type="hidden" name="options[prefix]" value="last" />
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      <div class="row">
+        {%- if search.results_count != empty and search.filters != empty -%}
+          {%- if section.settings.show_filters or section.settings.show_sort_by -%}
+          {%- capture close_icon -%}{% render 'svg-x' %}{%- endcapture -%}
+          {%- capture back_icon -%}{% render 'svg-chevron-left' %}{%- endcapture -%}
+            {% render 'facet-filters', results: search, paginate: paginate, close_icon: close_icon, back_icon: back_icon %}
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="cc-filters-results">
+      <div class="blocklayout search-results" data-results-total="{{ paginate.items }}">
+        {%- if search.performed -%}
+          {%- if search.results != empty -%}
+
+            {%- if settings.adv_ratio -%}
+              {%- assign ratio = 999 -%}
+              {%- for item in search.results -%}
+                {%- if item.object_type == 'product' -%}
+                  {%- if ratio == 999 -%}
+                    {%- assign ratio = item.featured_media.preview_image.aspect_ratio -%}
+                  {%- else -%}
+                    {%- if settings.prod_thumb_img_ratio == 'tallest' -%}
+                      {%- if item.featured_media.preview_image.aspect_ratio < ratio -%}{%- assign ratio = item.featured_media.preview_image.aspect_ratio -%}{%- endif -%}
+                    {%- else -%}
+                      {%- if item.featured_media.preview_image.aspect_ratio > ratio -%}{%- assign ratio = item.featured_media.preview_image.aspect_ratio -%}{%- endif -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- capture calculated_aspect_ratio -%}{{ ratio }}{%- endcapture -%}
+            {%- endif -%}
+
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-block', product: item, product_collection: false, product_image_size_norm: true, calculated_aspect_ratio: calculated_aspect_ratio %}
+              {%- else -%}
+                <div class="block text size-large">
+                  <div class="main">
+                    {% if item.object_type == 'article' and item.image %}
+                    <p class="image">{{ item.image | img_url: '1024x1024' | img_tag | link_to: item.url }}</p>
+                    {% endif %}
+
+                    <h2 class="search-result-title">{{ item.title }}</h2>
+                    <p class="search-result-description">{{ item.content | strip_html | truncatewords: 40 | highlight: search.terms }}</p>
+                  </div>
+                  <div class="sub">
+                    <a class="cta-link" href="{{ item.url }}">{{ 'general.search.view_page' | t }}</a>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+
+          {%- else -%}
+            <div class="block size-full-width">
+              <div class="h3 align-center">{{ 'general.search.no_results' | t: terms: search.terms }}</div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      {%- if search.performed and search.results != empty -%}
+        <div class="row cf">
+          {% render 'pagination-control', paginate: paginate %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+  {
+    "name": "Search results",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendors",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "coll_num_per_page_int",
+        "min": 24,
+        "max": 48,
+        "step": 8,
+        "label": "Products per page",
+        "default": 24
+      },
+      {
+        "type": "header",
+        "content": "Filtering"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filters",
+        "label": "Enable filtering",
+        "info": "[Customize filters](\/admin\/menus)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filter_prod_counts",
+        "label": "Show results counts",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Sorting"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_by",
+        "label": "Show 'sort by' option",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

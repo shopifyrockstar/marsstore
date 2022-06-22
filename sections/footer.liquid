@@ -1,0 +1,218 @@
+<div class="page-footer" data-section-type="footer-section">
+  {% if section.settings.show_signup %}
+    {% unless section.settings.hide_signup_home == true and template contains 'index' %}
+      <div class="signup-form {% if section.settings.show_signup_background_tint %}padded-block background-tint{% endif %} form">
+        <div class="signup-form-container">
+          <h6 class="h1 title">{{ section.settings.newsletter_title | escape }}</h6>
+          <div class="message rte">{{ section.settings.newsletter_text }}</div>
+          {% form 'customer' %}
+            {% if form.posted_successfully? %}
+              <p class="msg">{{ 'layout.signup.post_success' | t }}</p>
+            {% else %}
+              {% if form.errors %}
+                {% for field in form.errors %}
+                  <p class="msg error">{{ field | capitalize }} - {{ form.errors.messages[field] }}</p>
+                {% endfor %}
+              {% endif %}
+              <div class="inline-input-button-row">
+                <div class="inline-input-button-row__input">
+                  <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
+                  <input type="email" class="text required" value="" name="contact[email]" placeholder="{{ 'layout.signup.placeholder' | t | escape_once }}" aria-label="{{ 'layout.signup.input_label' | t | escape_once }}" />
+                </div>
+                <div class="inline-input-button-row__button">
+                  <button type="submit">{{ 'layout.signup.submit' | t }}</button>
+                </div>
+              </div>
+            {% endif %}
+          {% endform %}
+        </div>
+      </div>
+    {% endunless %}
+  {% endif %}
+
+  <div class="page-footer__lower cf">
+    {% if section.blocks != blank %}
+      <div class="page-footer__row page-footer__row-spacing page-footer__nav-column-container cf">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when '@app' %}
+              <div class="page-footer__column">
+                {% render block %}
+              </div>
+
+            {% when 'menu' %}
+              <div class="page-footer__column">
+                <div class="nav-column__title h3"><button class="button plain">{{ linklists[block.settings.menu].title }}</button> <span class="chevron">{% render 'svg-chevron-down' %}</span></div>
+                <ul>
+                  {% for link in linklists[block.settings.menu].links %}
+                    <li>{{ link.title | link_to: link.url }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+
+            {% when 'text' %}
+              <div class="page-footer__column page-footer__column--text">
+                <div class="nav-column__title h3">{{ block.settings.title }}</div>
+                <div class="rte">{{ block.settings.text }}</div>
+              </div>
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="page-footer__row cf">
+      {% if linklists[section.settings.menu_linklist].links.size > 0 %}
+        <ul class="page-footer__nav page-footer__row-spacing">
+          {% for link in linklists[section.settings.menu_linklist].links %}
+            <li>{{ link.title | link_to: link.url }}{% unless forloop.last %} <span class="separator">&middot;</span>{% endunless %}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <div class="page-footer__row page-footer__row--flex">
+      {% render 'social-icons', icon_setting: settings.social_custom_icon, icon_size: 'x32', container_class: 'page-footer__social-icons page-footer__row-spacing' %}
+
+      {% if section.settings.show_language_selector or section.settings.show_country_selector %}
+        <div class="footer-localization">
+          {% render 'localization', input_prefix: 'footer' %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="page-footer__row page-footer__row-spacing cf">
+      <div class="copy">
+        &copy; {{ "now" | date: "%Y" }} {{ shop.name | link_to: routes.root_url }}.
+
+        {{ powered_by_link }}
+
+      </div>
+      {% if section.settings.show_payment_icons %}
+        <span class="payment-methods">
+          {% for type in shop.enabled_payment_types %}
+            {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+          {% endfor %}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Footer",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "menu_linklist",
+        "label": "Small menu",
+		    "default": "footer",
+		    "info": "This menu won't show dropdown items"
+      },
+      {
+        "type": "header",
+        "content": "Payment methods"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Country/Region Selector",
+        "info": "To add a country/region, go to your [payment settings.](/admin/settings/payments)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_country_selector",
+        "label": "Show country/region selector",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Language Selector",
+        "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_language_selector",
+        "label": "Show language selector",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Newsletter signup"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_signup",
+        "label": "Show newsletter signup"
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_signup_home",
+        "label": "Exclude from home page",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_signup_background_tint",
+        "label": "Show background tint",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Heading",
+        "default": "Inbox me!"
+      },
+	    {
+        "type": "richtext",
+        "id": "newsletter_text",
+        "label": "Subheading",
+        "default": "<p>Sign up to our newsletter and we’ll keep you up to date with the latest arrivals<\/p>"
+      },
+      {
+        "type": "paragraph",
+        "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "menu",
+        "name": "Menu column",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "menu",
+            "label": "Menu",
+		        "info": "This menu won't show dropdown items"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text column",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
