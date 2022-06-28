@@ -160,6 +160,14 @@
 
                 {% render 'unit-price', variant: current_variant %}
               </div>
+        
+        	  <div
+                data-pp-message
+                data-pp-style-layout="text"
+                data-pp-style-text-color="black"
+                data-pp-style-logo-type="alternative"
+                data-pp-style-logo-position="top">
+              </div>
 
               {%- form 'product', product, id: product_form_installments_id -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">

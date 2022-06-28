@@ -11,20 +11,24 @@
     "logo_bg_col": "#f478c4",
     "header_bg_col": "#2a7de1",
     "header_text_col": "#000000",
-    "footer_bg_col": "#ffffff",
-    "footer_text_col": "#171717",
+    "footer_bg_col": "#2a7de1",
+    "footer_text_col": "#000000",
     "panel_bg_col": "#f478c4",
     "panel_txt_pri_col": "#000000",
     "bg_col": "#ffffff",
+    "bg_image": "",
     "bg_method": "repeatxy",
+    "bg_image_mobile": "",
+    "slideshow_button_icon": "#171717",
+    "image_overlay_opacity": 10,
     "coll_col_sale": "#f478c4",
     "coll_col_sold": "#141414",
     "coll_col_gen": "#f95400",
     "prod_rating_star": "#808284",
-    "type_base_font": "futura_n4",
-    "type_heading_font": "din_neuzeit_grotesk_n3",
+    "type_base_font": "open_sans_n4",
+    "type_heading_font": "open_sans_n4",
     "type_nav_font": "din_neuzeit_grotesk_n7",
-    "type_logo_font": "din_neuzeit_grotesk_n7",
+    "type_logo_font": "open_sans_n4",
     "font_size_base_int": 14,
     "prod_block_qv": true,
     "show_grid_reviews": false,
@@ -35,44 +39,58 @@
     "prod_stock_warn_limit_int": 10,
     "block_width_int": 250,
     "block_gut_int": 10,
+    "prod_thumb_hover_image": false,
     "adv_ratio": true,
     "prod_thumb_img_ratio": "100",
     "search_type": "product",
+    "enable_live_search": true,
+    "live_search_show_vendor": false,
+    "live_search_show_price": false,
+    "favicon": "shopify:\/\/shop_images\/30Sec_DSP_KYLIE_ELVIS_KANYE__FOR_IG_891fce84-c127-4d22-a20b-df88712806a0.png",
+    "social_twitter_url": "https:\/\/twitter.com\/MARSStore",
+    "social_facebook_url": "https:\/\/www.facebook.com\/thirtysecondstomars",
+    "social_youtube_url": "https:\/\/www.youtube.com\/user\/30secondstomars",
+    "social_instagram_url": "https:\/\/www.instagram.com\/30secondstomars\/",
+    "social_custom_icon": "shopify:\/\/shop_images\/snap-ghost.png",
+    "social_custom_url": "https:\/\/www.snapchat.com\/add\/marsofficial",
+    "checkout_logo_size": "large",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#f478c4",
+    "checkout_button_color": "#f478c4",
+    "checkout_error_color": "#ff6d6d",
     "sections": {
       "header": {
         "type": "header",
-        "blocks": {
-          "1539859666961": {
-            "type": "link",
-            "settings": {
-              "background_color": "#de9d9a",
-              "text_color": "#ffffff"
-            }
-          }
-        },
-        "block_order": [
-          "1539859666961"
-        ],
         "settings": {
-          "use_logo_margin": false,
+          "logo": "shopify:\/\/shop_images\/mars_faktpro_240_d3b92f93-1453-432f-bc20-5a896e97865e.png",
+          "use_logo_margin": true,
+          "menu_linklist": "main-menu",
           "sidebar_submenu_style": "out",
           "show_nav_shadow": false,
-          "show_nav_dividers": true,
+          "show_nav_dividers": false,
           "nav_featured_link": "Sale",
-          "nav_featured_col": "#dd6666",
+          "nav_featured_col": "#000000",
           "header_full_width": false,
           "show_country_selector": true,
-          "show_store_message": true
+          "show_language_selector": false,
+          "show_store_message": true,
+          "store_message": "INTRODUCING THE SUMMER 2022 COLLECTION",
+          "store_message_url": "shopify:\/\/collections\/summer-2022-collection"
         }
       },
       "footer": {
         "type": "footer",
         "settings": {
-          "show_payment_icons": true,
-          "show_country_selector": true,
+          "menu_linklist": "footer",
+          "show_payment_icons": false,
+          "show_country_selector": false,
+          "show_language_selector": false,
           "show_signup": true,
           "hide_signup_home": false,
-          "show_signup_background_tint": true
+          "show_signup_background_tint": true,
+          "newsletter_title": "Inbox me!",
+          "newsletter_text": "<p>Sign up to our newsletter and we’ll keep you up to date with the latest arrivals<\/p>"
         }
       },
       "product-recommendations": {
@@ -81,15 +99,38 @@
           "show_product_recommendations": true,
           "show_vendor": false
         }
+      },
+      "popup": {
+        "type": "popup",
+        "settings": {
+          "mode": "disabled",
+          "popup_delay_seconds": 5,
+          "popup_dismiss_for_days": 30,
+          "position": "center",
+          "title": "Sign up and save",
+          "text": "<p>Entice customers to sign up for your mailing list with discounts or exclusive offers.<\/p>",
+          "show_newsletter": true,
+          "show_social_icons": true
+        }
       }
     },
-    "bg_image": "",
-    "bg_image_mobile": "",
-    "slideshow_button_icon": "#171717",
-    "image_overlay_opacity": 10,
-    "enable_live_search": true,
-    "live_search_show_vendor": false,
-    "live_search_show_price": false
+    "content_for_index": [
+
+    ],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "1513253815146976218": {
+        "type": "shopify:\/\/apps\/omnisend-email-marketing-sms\/blocks\/app-embed\/44704aa2-794f-4c5d-8c8e-039c841158e9",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    }
   },
   "presets": {
     "Flamingo": {

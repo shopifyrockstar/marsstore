@@ -10,7 +10,7 @@
         {%- if settings.adv_ratio -%}
           {%- capture calculated_aspect_ratio -%}{% render 'minmax-image-ratio', products: recommendations.products, type: settings.prod_thumb_img_ratio == 'tallest' %}{%- endcapture -%}
         {%- endif -%}
-        {%- for product in recommendations.products -%}
+        {%- for product in recommendations.products -%}{% comment %}EasylockdownFilterBegin{% endcomment %}{% capture easylockdownFilter %}{% render 'easylockdown_filter_collection' with product, easylockdownRender: true, easylockdownItemSelectorOff: easylockdownItemSelectorOff %}{% endcapture %}{% assign easylockdownFilter = easylockdownFilter | strip %}{% if easylockdownFilter == 'continue' %}{% continue %}{% else %}{{ easylockdownFilter }}{% endif %}{% comment %}EasylockdownFilterEnd{% endcomment %}
           {%- render 'product-block' product: product, product_image_size_norm: true, calculated_aspect_ratio: calculated_aspect_ratio -%}
         {%- endfor -%}
       </div>

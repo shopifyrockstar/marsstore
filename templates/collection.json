@@ -3,6 +3,18 @@
     "main": {
       "type": "main-collection",
       "settings": {
+        "show_vendor": false,
+        "coll_num_per_page_int": 40,
+        "coll_infscr": false,
+        "show_image": false,
+        "image_position": "center center",
+        "image_height": "fixed",
+        "image_height_desktop": 400,
+        "image_height_mobile": 300,
+        "show_filters": false,
+        "show_filter_prod_counts": true,
+        "show_sort_by": true,
+        "show_featured": true
       }
     }
   },

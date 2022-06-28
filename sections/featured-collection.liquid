@@ -12,7 +12,7 @@
   {%- endif -%}
 
   <div class="{% if settings.adv_ratio %}fixedlayout{% else %}blocklayout{% endif %}" data-row-limit="{{ section.settings.row_count }}">
-    {% for product in collection.products %}
+    {% for product in collection.products %}{% comment %}EasylockdownFilterBegin{% endcomment %}{% capture easylockdownFilter %}{% render 'easylockdown_filter_collection' with product, easylockdownRender: true, easylockdownItemSelectorOff: easylockdownItemSelectorOff %}{% endcapture %}{% assign easylockdownFilter = easylockdownFilter | strip %}{% if easylockdownFilter == 'continue' %}{% continue %}{% else %}{{ easylockdownFilter }}{% endif %}{% comment %}EasylockdownFilterEnd{% endcomment %}
       {% render 'product-block', product: product, product_collection: collection, calculated_aspect_ratio: calculated_aspect_ratio %}
     {% endfor %}
 

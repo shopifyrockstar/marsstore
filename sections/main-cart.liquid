@@ -165,6 +165,8 @@
           </span>
         </div>
       </div>
+      
+      <div class="route-div" style="margin-bottom: -28px;"></div>
 
       {%- if section.settings.show_tax_and_shipping -%}
         {%- capture taxes_shipping_checkout -%}
@@ -208,6 +210,14 @@
         {{ content_for_additional_checkout_buttons }}
       </div>
       {% endif %}
+      
+      <div
+        data-pp-message
+        data-pp-style-layout="text"
+        data-pp-style-text-color="black"
+        data-pp-style-logo-type="alternative"
+        data-pp-style-logo-position="top">
+      </div>
 
       <div class="inner-row">{{ 'cart.general.message_html' | t }}</div>
       <div class="inner-row"><a href="{{ collection_url }}">{{ 'cart.general.continue_browsing' | t }}</a></div>

@@ -1,5 +1,6 @@
 <div class="page-footer" data-section-type="footer-section">
   {% if section.settings.show_signup %}
+  {% comment %}
     {% unless section.settings.hide_signup_home == true and template contains 'index' %}
       <div class="signup-form {% if section.settings.show_signup_background_tint %}padded-block background-tint{% endif %} form">
         <div class="signup-form-container">
@@ -28,6 +29,8 @@
         </div>
       </div>
     {% endunless %}
+  {% endcomment %}
+  	<div class="klaviyo-form-XpQZpw custom-kl-form"></div>
   {% endif %}
 
   <div class="page-footer__lower cf">
@@ -82,10 +85,12 @@
 
     <div class="page-footer__row page-footer__row-spacing cf">
       <div class="copy">
-        &copy; {{ "now" | date: "%Y" }} {{ shop.name | link_to: routes.root_url }}.
-
-        {{ powered_by_link }}
-
+       &copy; {{ "now" | date: "%Y" }} {{ shop.name | link_to: '/' }}
+		{% if linklists.legal.links.size > 0 %}
+         {% for link in linklists.legal.links %}
+            <span> | {{ link.title | link_to: link.url }}</span>
+      	{% endfor %}
+      	{% endif %}
       </div>
       {% if section.settings.show_payment_icons %}
         <span class="payment-methods">

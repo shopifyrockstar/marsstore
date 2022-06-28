@@ -16,7 +16,7 @@ File structure:
 {% assign sidebar_width = 240 %}
 {% assign sidebar_gutter = 27 %}
 {% assign sidebar_flyout_width = 210 %}
-{% assign page_header_vertical_padding = 1 %}
+{% assign page_header_vertical_padding = 5 %}
 {% assign page_header_line_height = 2.4 %}
 {% assign tablet_snap_width = 1000 %}
 {% assign sidebar_shadow = '0 0 15px 5px rgba(0,0,0,0.15)' %}
@@ -3250,7 +3250,7 @@ body::before {
 
 {% endif %}
 h1, .h1, .h1-style {
-  font-size: 160%;
+  font-size: 125%;
   line-height: 1.3;
   margin: 1em 0;
 }
@@ -4486,8 +4486,13 @@ html.no-js,
   backface-visibility: hidden;
   background: {{ flyout_bg_col }};
 }
+  .mainnav .outside-expanded .tier2 .tier-title a{
+    margin:0;
+  }  
 .nav-outside-expanded-mode .mainnav .tier2, .nav-outside-expanded-mode .mainnav .tier2 a, .nav-outside-expanded-mode .mainnav .tier2 a:hover {
   color: {{ flyout_text_col }};
+  text-transform:uppercase;
+  font-weight:700;  
 }
 .nav-outside-expanded-mode .mainnav .tier2 > ul > li > a {
   border-bottom-color: {{ flyout_text_col | color_modify: "alpha", 0.25 }};
@@ -5186,6 +5191,9 @@ body.nav-outside-expanded-mode .page-header {
 
 .product-block-title {
   color: {{ font_col_heads }};
+  font-weight:700;
+  text-transform: uppercase;
+  letter-spacing: .3px;
 }
 
 .product-vendor {
@@ -5903,7 +5911,9 @@ label .product-inventory-notice::before {
   background: {{ header_bg_col }};
   color: {{ header_text_col }};
   text-align: right;
+  {% comment %}
   font-size: {{ small_font_size }}px;
+  {% endcomment %}
   line-height: {{ page_header_line_height }}em;
 }
 .page-header a {
@@ -6131,7 +6141,9 @@ label .product-inventory-notice::before {
   color: {{ footer_text_col }};
   padding: 10px {{ gutter }}px;
   text-align: right;
-  font-size: {{ small_font_size }}px;
+  {% comment %}font-size: {{ small_font_size }}px;{% endcomment %}
+  font-size: {{ font_size_base_int }}px;
+  
 }
 .page-footer__lower .page-footer__nav,
 .page-footer__lower .copy {
@@ -8061,3 +8073,78 @@ textarea {
 /*************    ---                   ---                   ---   *************/
 /*************    |     ENTER YOUR CUSTOM CODE BELOW HERE       |   *************/
 /*************    ---                   ---                   ---   *************/
+  
+  
+  
+/*  styles from 1.0  */
+  .mainnav .tier1 > ul > li > a {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .mainnav .tier1 > ul > li > a {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .mainnav a {
+    display: block;
+    margin: 0 $sidebar-gutter;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0, 0.25);
+    transition: 250ms border-color;
+  }
+  .mainnav li.active > a,
+  .mainnav li > a:hover,
+    .mainnav .tier1 > ul > li.expanded > a {
+      border-bottom-color: rgba(0,0,0, 0.9);
+    }
+
+  .mainnav .tier-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 10px 27px 10px;
+  }
+  
+  
+  [data-section-type="featured-collection"] h1{
+    font-weight: 700;
+  }
+  
+  .shopify-section h1{
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  
+  
+  .custom-kl-form > div{
+    background: #f2f2f2;
+    margin: 0 50px 50px;
+    padding: 50px;
+  }
+  .custom-kl-form > div form{
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+
+  @media only screen and (max-width: 767px){
+    .custom-kl-form > div{
+      margin: 20px;
+      padding: 20px;
+    }
+  }
+
+  .template-page .reading-container.custom-signup-page{
+    margin:0 auto;
+    margin-top: 50px;
+  }
+  
+  
+  .page-footer a {
+    color: inherit;
+    text-transform: uppercase;
+  }
+  
+  
+  .pagination .pagination__summary{
+    text-transform: uppercase;
+  }

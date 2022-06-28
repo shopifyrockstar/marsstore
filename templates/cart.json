@@ -3,6 +3,14 @@
     "main": {
       "type": "main-cart",
       "settings": {
+        "show_cart_notes": true,
+        "show_tax_and_shipping": false,
+        "cart_terms_show": false,
+        "cart_terms_page": "",
+        "show_additional_checkout_buttons": true,
+        "show_backorder_text": true,
+        "shipping_calculator": false,
+        "shipping_calculator_default_country": "United States"
       }
     }
   },
