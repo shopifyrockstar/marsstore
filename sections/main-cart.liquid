@@ -139,6 +139,15 @@
 
       <div class="cf cart-update-row">
         <input type="submit" class="button--slim cart-update" name="update" value="{{ 'cart.general.update' | t }}" />
+        {% if section.settings.show_cart_notes %}
+          <div id="checkout-note" class="form hide-note">
+            <label for="note">
+              <a href="#" id="toggle-note">{{ 'cart.label.note' | t }}</a>
+            </label>          
+            <textarea id="note" name="note">{{ cart.note }}</textarea>
+          </div>
+        {% endif %}
+        
       </div>
 
       <div class="subtotal-row">
@@ -182,14 +191,7 @@
         {%- endcapture -%}
 
         <div class="cart-policies">{{ taxes_shipping_checkout }}</div>
-      {%- endif -%}
-
-      {% if section.settings.show_cart_notes %}
-        <div id="checkout-note" class="form">
-          <label for="note">{{ 'cart.label.note' | t }}</label>
-          <textarea id="note" name="note">{{ cart.note }}</textarea>
-        </div>
-      {% endif %}
+      {%- endif -%}      
 
       {% render 'shipping-calculator' %}
 
@@ -202,7 +204,7 @@
       {% endif %}
 
       <div class="checkout-row">
-        <input type="submit" id="update-cart" name="checkout" value="{{ 'cart.general.checkout' | t }}" />
+        <input type="submit" id="update-cart" name="checkout" value="CHECKOUT" />
       </div>
 
       {% if section.settings.show_additional_checkout_buttons and additional_checkout_buttons and section.settings.cart_terms_show == false %}
@@ -218,12 +220,17 @@
         data-pp-style-logo-type="alternative"
         data-pp-style-logo-position="top">
       </div>
-
+    
+      {% form 'cart', cart %}
+      {{ form | payment_terms }}
+      {% endform %}
       <div class="inner-row">{{ 'cart.general.message_html' | t }}</div>
       <div class="inner-row"><a href="{{ collection_url }}">{{ 'cart.general.continue_browsing' | t }}</a></div>
 
     </form>
+    
     {% endif %}
+    
   </div>
 </div>
 

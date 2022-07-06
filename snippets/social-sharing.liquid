@@ -21,5 +21,12 @@
       </a>
     </li>
     {% endif %}
+    
+    <li class="google">
+      <a title="{{ 'general.social.on_google' | t | escape }}" target="_blank" href="https://plus.google.com/share?url={{ url_to_share | url_param_escape }}">{% render 'svg-google-plus' %}</a>
+    </li>
+
+    <li class="email"><a title="{{ 'general.social.by_email' | t | escape }}" href="mailto:?subject={{ social_check_out | url_param_escape }}&amp;body={{ social_check_out | url_param_escape }}:%0D%0A%0D%0A{{ url_to_share | url_param_escape }}">{% render 'svg-email' %}</a></li>
+    
   </ul>
 </div>

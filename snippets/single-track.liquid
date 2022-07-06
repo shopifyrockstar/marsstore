@@ -25,16 +25,49 @@ SOFTWARE.
 {% assign trackReleaseDate = trackReleaseDateFormatted | date: "%s" | plus: 0 %}
 {% capture trackOnSale %}{% if trackReleaseDate <= now %}true{% endif %}{% endcapture %}
 {% capture previewAvailable %}{% if track.metafields.track.preview == "true" %}true{% endif %}{% endcapture %}
-{% assign previewLink = track.metafields.track.preview_link %}
+{% assign previewLink = track.metafields.track.preview_link | default: 'https://cdn.shopify.com/s/files/1/0587/4565/1358/files/ojio_-_ojio_-_01_time_is_a_tree.wav' %}
 {% capture albumOnly %}{% if track.metafields.track.album_only == "true" %}true{% endif %}{% endcapture %}
 {% capture previewClickEvent %}{% if trackOnSale == "true" and previewAvailable == "true" %}onclick="togglePlayingTrack('{{ track.id }}', '{{ previewLink }}')"{% endif %}{% endcapture %}
 {% capture trackTime %}{% if track.metafields.track.track_time != '' %}<span>{{track.metafields.track.track_time}}</span>{% endif %}{% endcapture %}
 {% capture previewClass %}{% if previewAvailable == "true" %} single-track-preview{% endif %}{% endcapture %}
 {% capture availableClass %}{% if trackOnSale == "true" %} single-track-available{% endif %}{% endcapture %}
+{% assign tuning = track.metafields.track.tuning | default: 'C#' %}
+{% assign bpm = track.metafields.track.bpm | default: '126bpm' %}
 
-<div class="single-track{{previewClass}}{{availableClass}}" data-track-id="{{ track.id }}">
+{% for variant in track.variants %}
+  {% if variant.available %}
+    {% if variant == track.selected_or_first_available_variant %}
+      {% assign track_variant = variant.id %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
 
-  <div class="single-track-play" {{ previewClickEvent }}>
+<a 
+  class="single-track {{previewClass}} {{availableClass}}" 
+  href="" 
+  data-track-id="{{ track.id }}"
+  data-variant-id="{{ track_variant }}"
+  data-href="" 
+  data-preview-link="{{ previewLink | escape }}"
+  data-tuning="{{ tuning | escape }}"
+  data-bpm="{{ bpm | escape }}"
+  data-title="{% if track.metafields.track.featured_artist_names %}{{ track.title }} (feat. {{track.metafields.track.featured_artist_names}}){% else %}{{ track.title | escape }}{% endif %}"
+  data-artist="{{ product.metafields.album.artist_name | escape }}"
+  data-price="{{ track.price | money }}"
+>
+
+  <div 
+    class="single-track-play"
+    data-href="" 
+    data-track-id="{{ track.id }}"
+    data-variant-id="{{ track_variant }}"
+    data-preview-link="{{ previewLink | escape }}"
+    data-tuning="{{ tuning | escape }}"
+    data-bpm="{{ bpm | escape }}"
+    data-title="{% if track.metafields.track.featured_artist_names %}{{ track.title }} (feat. {{track.metafields.track.featured_artist_names}}){% else %}{{ track.title | escape }}{% endif %}"
+    data-artist="{{ product.metafields.album.artist_name | escape }}"
+    data-price="{{ track.price | money }}"
+  >
     {% if trackOnSale == "true" and previewAvailable == "true" %}
       <span class="single-play-icon">
         <i class="material-icons">play_circle_outline</i>
@@ -42,7 +75,7 @@ SOFTWARE.
     {% endif %}
   </div>
   
-  <div class="single-track-title" {{ previewClickEvent }}>
+  <div class="single-track-title">
     {% if track.metafields.track.featured_artist_names %}
         <span>{{ track.title }} (feat. {{track.metafields.track.featured_artist_names}})</span>
     {% else %}
@@ -50,7 +83,7 @@ SOFTWARE.
     {% endif %}
   </div>
 
-  {% if trackOnSale == "true" %}
+  {% if trackOnSale == "true" and previewAvailable == "true" %}
   <div class="single-track-time">
       {{trackTime}}
   </div>
@@ -60,21 +93,17 @@ SOFTWARE.
   {% if track.metafields.track.album_only == "true" or trackOnSale != "true" %}
     <!-- If Album Only -->
   {% else %}
-    {% for variant in track.variants %}
-      {% if variant.available %}
-        {% if variant == track.selected_or_first_available_variant %}
-          {% assign track_variant = variant.id %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
     {% if presale != "true" or trackOnSale == "true" %}
-      <div class="single-track-add-to-cart">
-        <div class="single-track-btn" 
-             onclick="addTrackToCart({{ track_variant }}, {{ track.id }});">
-          <i class="material-icons" id="single-add-track-to-cart-icon-{{track.id}}">add_shopping_cart</i>
+      <div 
+        class="single-track-add-to-cart" 
+        data-variant-id="{{ track_variant }}"
+        data-track-id="{{ track.id }}"
+      >
+        <div class="single-track-btn">
+          <i class="material-icons single-add-track-to-cart-icon-{{track.id}}">add_shopping_cart</i>
           <span>{{ track.price | money }}</span>
         </div>
       </div>
     {% endif %}
   {% endif %}
-</div>
+</a>

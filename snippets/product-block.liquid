@@ -89,6 +89,9 @@
     <div class="pricearea">
       {%- assign cheapest_variant = product.variants | sort: 'price' | first -%}
 
+      {% if cheapest_variant.compare_at_price > cheapest_variant.price %}
+        <span class="was-price theme-money">{{ cheapest_variant.compare_at_price | money }}</span>
+      {% endif %}
       {% if product.price_varies %}<span class="from">{{ 'products.listing.from' | t }}</span>{% endif %}
       <span class="price {% if cheapest_variant.compare_at_price > cheapest_variant.price %}price--reduced{% endif %} theme-money">
         {%- if settings.product_currency_code_enabled -%}
@@ -97,9 +100,7 @@
           {{- cheapest_variant.price | money -}}
         {%- endif -%}
       </span>
-      {% if cheapest_variant.compare_at_price > cheapest_variant.price %}
-        <span class="was-price theme-money">{{ cheapest_variant.compare_at_price | money }}</span>
-      {% endif %}
+      
 
       {% render 'unit-price', variant: cheapest_variant %}
     </div>

@@ -345,8 +345,9 @@
                 {% render 'backorder', product: product, item: current_variant %}
               {% endif %}
 
-            {% when 'description' %}
-              <div class="description rte section cf{% unless block.settings.show_in_quickbuy %} not-in-quickbuy{% endunless %}" {{ block.shopify_attributes }}>
+            {% when 'description' %}              
+              <div class="accordion active">Description</div>              
+              <div class="panel description rte section cf{% unless block.settings.show_in_quickbuy %} not-in-quickbuy{% endunless %}" {{ block.shopify_attributes }} style="display:block;">
                 {{ product.description }}
               </div>
 
@@ -370,7 +371,12 @@
 
             {% when 'richtext' %}
               {% if block.settings.richtext != blank %}
-                <div class="rte cf light-inner-row{% unless block.settings.show_in_quickbuy %} not-in-quickbuy{% endunless %}" {{ block.shopify_attributes }}>{{ block.settings.richtext }}</div>
+        		{% if product.metafields.custom.size_chart != blank %}
+        			<div class="accordion">Size Chart</div>
+        		{% endif %}
+                <div class="{% if product.metafields.custom.size_chart != blank %}panel {% endif %}rte cf light-inner-row{% unless block.settings.show_in_quickbuy %} not-in-quickbuy{% endunless %}" {{ block.shopify_attributes }}>
+                  {{ block.settings.richtext }}
+        		</div>
               {% endif %}
 
             {% when 'popup' %}
@@ -839,3 +845,57 @@
     ]
   }
 {% endschema %}
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+<style>
+  .accordion {
+    background-color: transparent;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-bottom: 1px solid lightgrey;
+    padding-left: 0;
+    position:relative;
+  }
+  .accordion:after {
+    content: '+';
+    position: absolute;
+    right: 5px;
+    transition: all .5s;
+/*     transform: rotate(0deg); */
+    font-size: 20px;
+  }
+  .accordion.active:after {
+/*     transform: rotate(135deg); */
+    content:'-';
+    font-size: 20px;
+    transition: all .5s;
+  }
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+}
+</style>

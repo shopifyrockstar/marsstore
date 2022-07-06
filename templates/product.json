@@ -41,7 +41,7 @@
             "show_inventory_notice": false,
             "inventory_notice_threshold": 10,
             "enable_ajax_add": true,
-            "enable_payment_button": true,
+            "enable_payment_button": false,
             "show_pickup_availability": true,
             "show_backorder_text": true
           }
@@ -52,8 +52,20 @@
             "show_in_quickbuy": false
           }
         },
+        "cf5d8a55-b267-406b-8608-2d495b734d4d": {
+          "type": "richtext",
+          "settings": {
+            "richtext": "<p>{{ product.metafields.custom.size_chart.value }}<\/p>",
+            "show_in_quickbuy": false
+          }
+        },
         "29ebae9b-5761-4a17-9e53-e9d12db56101": {
           "type": "sharing",
+          "settings": {
+          }
+        },
+        "ce8ec13b-fe6c-493c-959e-68b285fb548b": {
+          "type": "shopify:\/\/apps\/single-nfts-music-video\/blocks\/single-progress-bar\/8d85f52c-3e0c-488a-8beb-e1cc4fe0f579",
           "settings": {
           }
         }
@@ -66,10 +78,12 @@
         "variant_picker",
         "buy_buttons",
         "description",
-        "29ebae9b-5761-4a17-9e53-e9d12db56101"
+        "cf5d8a55-b267-406b-8608-2d495b734d4d",
+        "29ebae9b-5761-4a17-9e53-e9d12db56101",
+        "ce8ec13b-fe6c-493c-959e-68b285fb548b"
       ],
       "settings": {
-        "full_width": false,
+        "full_width": true,
         "prod_desc_under": false,
         "show_arrows": true,
         "arrow_position": "middle",
@@ -83,10 +97,27 @@
         "title": "YOU MIGHT ALSO LIKE",
         "show_vendor": false
       }
+    },
+    "1656512901a7a297f1": {
+      "type": "custom-row",
+      "blocks": {
+        "ff5e0b26-f5b2-46a3-a125-7bd11786b064": {
+          "type": "html",
+          "settings": {
+            "code": "<div class=\"socialphotos-com-gallery slpht-clearfix\" data-uid=\"marsstore.myshopify.com\"><\/div>"
+          }
+        }
+      },
+      "block_order": [
+        "ff5e0b26-f5b2-46a3-a125-7bd11786b064"
+      ],
+      "settings": {
+      }
     }
   },
   "order": [
     "main",
-    "recommendations"
+    "recommendations",
+    "1656512901a7a297f1"
   ]
 }

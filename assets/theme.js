@@ -4572,3 +4572,10 @@
 
 })(theme.jQuery);  
 /* Built with Barry v1.0.8 */
+
+
+$("#toggle-note").click(function(evt){
+  evt.preventDefault();
+  $("#checkout-note").toggleClass("hide-note");
+console.log("clicked");
+})

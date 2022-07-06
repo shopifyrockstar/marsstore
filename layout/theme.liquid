@@ -14,6 +14,7 @@
   {% render 'social-meta-tags' %}
 
   {{ content_for_header }}
+  {%- render 'bold-common' -%}
 
   {{ 'styles.css' | asset_url | stylesheet_tag }}
 
@@ -63,9 +64,13 @@
       block_width_int: {{ settings.block_width_int | default: 240 }}
     };
   </script>
+  <script
+    src="https://www.paypal.com/sdk/js?client-id=AYLmmHiSQ8Ixe0VAno45d5Af7dbwAtrR7tliXUArL87rkPp-cFOmI_hyln8pZFgqw0JZzOsMWI33W4AJ&components=messages"
+    data-namespace="paypal2">
+  </script>
 </head>
 
-<body class="{% if customer %}customer-logged-in {% endif %}template-{{ template | split: '.' | first | default: 'non-theme' }}">
+<body class="{% if customer %}customer-logged-in {% endif %}template-{{ template | split: '.' | first | default: 'non-theme' }} {% if template contains 'customers' %}customer-container{% endif %}">
   <a class="skip-link visually-hidden" href="#content">{{ 'general.accessibility_labels.skip_to_content' | t }}</a>
 
   <div class="bodywrap cf">
@@ -88,6 +93,16 @@
 
   {{ 'vendor.min.js' | asset_url | script_tag }}
   {{ 'theme.js' | asset_url | script_tag }}
+  
+  {% render 'spurit_sct_theme_snippet' %}
+
+  <!-- Back in Stock helper snippet -->
+  {% render 'back-in-stock-helper' %}
+  <!-- End Back in Stock helper snippet -->
+
+  <!-- **BEGIN** Hextom CTB Integration // Main Include - DO NOT MODIFY -->
+  {% render 'hextom_ctb_main', product: product, customer: customer %}
+  <!-- **END** Hextom CTB Integration // Main Include - DO NOT MODIFY -->
 
   </body>
 </html>
